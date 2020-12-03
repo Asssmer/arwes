@@ -19,12 +19,12 @@ test('Should return nothing if no provider was found', () => {
 test('Should return provided data if provider was found', () => {
   const Example = () => {
     const received = useAnimation();
-    const expected = { animate: true, duration: { enter: 100 } };
+    const expected = { duration: { enter: 100 } };
     expect(received).toEqual(expected);
     return null;
   };
   render(
-    <AnimationProvider animation={{ animate: true, duration: { enter: 100 } }}>
+    <AnimationProvider animation={{ duration: { enter: 100 } }}>
       <Example />
     </AnimationProvider>
   );

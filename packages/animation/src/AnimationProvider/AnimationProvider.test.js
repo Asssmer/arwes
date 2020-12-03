@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { render, cleanup } from '@testing-library/react';
 
 import { AnimationContext } from '../AnimationContext';
-import { Component as AnimationProvider } from './AnimationProvider.component';
+import { AnimationProvider } from './index';
 
 afterEach(cleanup);
 
@@ -30,19 +30,6 @@ test('Should provide undefined if no settings were found', () => {
   }
   render(
     <AnimationProvider>
-      <Animated />
-    </AnimationProvider>
-  );
-});
-
-test('Should provide "animate" if defined', () => {
-  function Animated () {
-    const settings = useContext(AnimationContext);
-    expect(settings).toEqual({ animate: true });
-    return null;
-  }
-  render(
-    <AnimationProvider animation={{ animate: true }}>
       <Animated />
     </AnimationProvider>
   );
@@ -78,13 +65,12 @@ test('Should extend nested providers settings', () => {
   function Animated () {
     const settings = useContext(AnimationContext);
     expect(settings).toEqual({
-      animate: true,
       duration: { enter: 150, exit: 100, stagger: 75 }
     });
     return null;
   }
   render(
-    <AnimationProvider animation={{ animate: true, duration: { enter: 150, stagger: 50 } }}>
+    <AnimationProvider animation={{ duration: { enter: 150, stagger: 50 } }}>
       <div>
         <AnimationProvider animation={{ duration: { exit: 100, stagger: 75 } }}>
           <Animated />
